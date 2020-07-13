@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.css" integrity="sha256-6Wozb/CzRANFOaGqN+u/uRT7kcffVIQt9OhOuuA6I9o=" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do</title>
+</head>
+<body>
+    <style>
+
+        
+        h1 {
+            text-align: center;  
+            font-size: 4em;
+            font-family: 'Henny Penny', cursive;
+        }
+        h3 {
+            font-size: 2em;
+            font-family: 'Henny Penny', cursive;
+        }
+        .container {
+            background: linear-gradient(#849c2c6e,#32a9ee) fixed; 
+            margin-left: 8em;
+            margin-right: 8em;
+            border-radius: 20px;
+            box-shadow: rgb(59, 54, 54) 5px 5px 8px;
+            padding: 1em;
+        }
+
+        body {
+            text-align: center;
+            margin: 3em;
+            background: linear-gradient(#e7dd57,#4a8df2) fixed; 
+            font-family: 'Henny Penny', cursive;       
+            
+        }
+        li {
+            text-align: center;
+            font-size: 2em;
+            
+        }
+        ul {
+            text-align: center;
+          
+        }
+        input {
+            background-color: #d3c946;
+            color: rgb(24, 22, 16);
+            border-color: -internal-light-dark-color(rgb(27, 16, 16), rgb(48, 155, 71));
+            border-radius: 7px;
+            font-size: 1.5em;
+            font-family: 'Henny Penny', cursive;
+        } 
+        .btn-warning {
+            background-color: rgba(231, 166, 45, 0.795);
+            font-size: 1.5em;
+            border-radius: 10px;
+            font-family: 'Henny Penny', cursive;
+        }
+        .btn-danger {
+            background-color: rgb(83, 153, 199);
+            font-size: 1.5em;
+            border-radius: 10px;
+            font-family: 'Henny Penny', cursive;
+        }
+        .done {
+            background-color: hotpink;
+        }
+        footer {
+            margin-top: 1em;
+        }
+
+    </style>
+        <h1 class="animate__animated animate__rubberBand">To-Do List</h1> 
+    
+ <div class="container">
+     
+        <input type="text" name="new" id="new" placeholder="New Task">
+        <button type="button" class="btn btn-warning" onclick="addNew ();">Save</button>
+        <hr>
+
+        <h3>Current Tasks</h3>
+        <p id="date"></p>
+
+        <ul id="tasks" ></ul>
+        <button type="button" class="btn btn-danger" onclick="clearAll();">Clear All</button>
+    </div>
+    <br>
+    <footer>
+        <img src="https://images.unsplash.com/photo-1534644107580-3a4dbd494a95?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="card" style="border-radius: 20px; box-shadow: rgb(37, 35, 35) 5px 5px 8px;">
+    </footer>
+    <script>
+
+        function init() {
+            let list = document.getElementById("tasks");
+            list.onclick = update;           
+        }
+        function addNew() {
+            let newTask = document.getElementById("new"); 
+            if (newTask.value != '')  {                              
+            let list = document.getElementById("tasks");
+            let li = document.createElement("li");
+            li.innerHTML = `<span class="delete">&times;</span><input type="checkbox" class="done"> <label>${newTask.value}</label>`; 
+            list.appendChild(li);
+            newTask.value = null;
+            }
+        }
+        function update(event) {
+            if (event.target.className == "delete") {
+                let task = event.target.parentNode;
+                let list = task.parentNode;
+                list.removeChild(task);
+            }
+        
+            if (event.target.className == "done") {
+                let checkbox = event.target;
+                let task = checkbox.nextSibling.nextSibling;
+                var d = new Date(); 
+                document.getElementById("date").innerHTML = d;  
+                if (checkbox.checked) {
+                    task.style.textDecoration = "line-through";
+                }
+                else {
+                    task.style.textDecoration = "none";
+                }
+            }
+        }
+        function clearAll() {
+            let list = document.getElementById("tasks");
+            list.innerHTML = null;
+        }
+        init();
+    </script>
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>  
+</body>
+</html>
